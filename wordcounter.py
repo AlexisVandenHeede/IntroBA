@@ -11,10 +11,10 @@ for each in data['cells']:
     cellType = each['cell_type']
     if cellType == "markdown":
         content = each['source']
-        for line in content:
-            temp = [word for word in line.split() if "#" not in word] # we might need to filter for more markdown keywords here
-            wordCount = wordCount + len(temp)
-
+        if not content[0].strip().startswith("Collaboration"):
+            for line in content:
+                temp = [word for word in line.split() if "#" not in word]
+                wordCount += len(temp)
 # print(wordCount)
 
 if wordCount > 2500:
