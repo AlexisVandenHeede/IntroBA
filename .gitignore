@@ -71,6 +71,10 @@ instance/
 # Sphinx documentation
 docs/_build/
 
+# jupyter notebook
+.ipynb_checkpoints
+
+
 # PyBuilder
 .pybuilder/
 target/
@@ -161,3 +165,5 @@ cython_debug/
 
 # data file
 data/Trips_2018.csv
+data/2018_weather_data_month_averages.txt
+data/2018_weather_data.txt
