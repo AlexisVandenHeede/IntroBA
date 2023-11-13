@@ -2,3 +2,5 @@ numpy
 pandas 
 matplotlib.pyplot
 sklearn
+geopandas
+shapely.geometry
