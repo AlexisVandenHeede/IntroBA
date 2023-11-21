@@ -50,8 +50,13 @@ kmeans = KMeans(n_clusters=20, random_state=0, n_init='auto').fit(df[['end_stati
 
 df_arrival = df.drop(['start_station_latitude', 'start_station_longitude', 'start_station_id'], axis=1)
 df_departure = df.drop(['end_station_latitude', 'end_station_longitude', 'end_station_id'], axis=1)
-df_arrival['label'] = kmeans.predict(df[['end_station_latitude', 'end_station_longitude']])
-df_departure['label'] = kmeans.predict(df[['start_station_latitude', 'start_station_longitude']])
+
+# make lat and long called that
+df_arrival.rename(columns={'end_station_latitude': 'latitude', 'end_station_longitude': 'longitude'}, inplace=True)
+df_departure.rename(columns={'start_station_latitude': 'latitude', 'start_station_longitude': 'longitude'}, inplace=True)
+
+df_arrival['label'] = kmeans.predict(df[['latitude', 'longitude']])
+df_departure['label'] = kmeans.predict(df[['latitude', 'longitude']])
 
 
 print(df_arrival.columns)
