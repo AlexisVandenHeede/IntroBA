@@ -15,6 +15,8 @@ for each in data['cells']:
             for line in content:
                 if line.startswith("# Appendix"):
                     break
+                if line.startswith("### stuff to add after reading peer reviews"):
+                    break
                 else:
                     temp = [word for word in line.split() if "#" not in word]
                     wordCount += len(temp)
