@@ -1,7 +1,7 @@
 import json
 
 
-with open('reportv1.ipynb',encoding="utf8") as json_file:
+with open('reportv1.ipynb', encoding="utf8") as json_file:
     data = json.load(json_file)
 
 # print(data)
@@ -13,8 +13,11 @@ for each in data['cells']:
         content = each['source']
         if not content[0].strip().startswith("Collaboration"):
             for line in content:
-                temp = [word for word in line.split() if "#" not in word]
-                wordCount += len(temp)
+                if line.startswith("# Appendix"):
+                    break
+                else:
+                    temp = [word for word in line.split() if "#" not in word]
+                    wordCount += len(temp)
 # print(wordCount)
 
 if wordCount > 2500:
