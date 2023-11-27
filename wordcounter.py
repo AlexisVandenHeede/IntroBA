@@ -1,7 +1,7 @@
 import json
 
 
-with open('reportv1.ipynb') as json_file:
+with open('reportv1.ipynb',encoding="utf8") as json_file:
     data = json.load(json_file)
 
 # print(data)
