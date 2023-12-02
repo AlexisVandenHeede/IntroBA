@@ -125,65 +125,67 @@ print('added count')
 df_arrival = df_arrival.drop_duplicates()
 df_departure = df_departure.drop_duplicates()
 
-# merge weather data with arrival and departure
-df_arrival = df_arrival.merge(weather_data, on=['day', 'month', 'day_of_week', 'weekend'], how='left')
-df_departure = df_departure.merge(weather_data, on=['day', 'month', 'day_of_week', 'weekend'], how='left')
-
-# check for nan
-print(df_arrival.isnull().sum())
-print(df_departure.isnull().sum())
-# drop nan
-df_arrival.dropna(inplace=True)
-df_departure.dropna(inplace=True)
-
-print(df_arrival.columns)
-print(df_departure.columns)
-
-# print type per column
-print(df_arrival.dtypes)
-print(df_departure.dtypes)
-
-# drop time
-df_arrival.drop(['time'], axis=1, inplace=True)
-df_departure.drop(['time'], axis=1, inplace=True)
-
-# convert to float16 if column data type  is object
-for col in df_arrival.columns:
-    if df_arrival[col].dtype == 'object':
-        df_arrival[col] = df_arrival[col].astype('float16')
-for col in df_departure.columns:
-    if df_departure[col].dtype == 'object':
-        df_departure[col] = df_departure[col].astype('float16')
-
-print(df_arrival.dtypes)
-print(df_departure.dtypes)
-
-print('reducing memory')
-df_arrival = reduce_mem_usage(df_arrival)
-df_departure = reduce_mem_usage(df_departure)
-
-# standardise data
-print('standardising')
-scaler = StandardScaler()
-df_arrival = scaler.fit_transform(df_arrival)
-df_departure = scaler.fit_transform(df_departure)
 
 
-# split into train and test and eval
-split = 0.2
-df_arrival_train, df_arrival_test = train_test_split(df_arrival, test_size=split)
-df_arrival_train, df_arrival_eval = train_test_split(df_arrival_train, test_size=split)
-df_departure_train, df_departure_test = train_test_split(df_departure, test_size=split)
-df_departure_train, df_departure_eval = train_test_split(df_departure_train, test_size=split)
+# # merge weather data with arrival and departure
+# df_arrival = df_arrival.merge(weather_data, on=['day', 'month', 'day_of_week', 'weekend'], how='left')
+# df_departure = df_departure.merge(weather_data, on=['day', 'month', 'day_of_week', 'weekend'], how='left')
 
-print('saving now')
+# # check for nan
+# print(df_arrival.isnull().sum())
+# print(df_departure.isnull().sum())
+# # drop nan
+# df_arrival.dropna(inplace=True)
+# df_departure.dropna(inplace=True)
 
-# save to csv
-np.savetxt('data/arrival_train_count.csv', df_arrival_train, delimiter=',')
-np.savetxt('data/arrival_test_count.csv', df_arrival_test, delimiter=',')
-np.savetxt('data/arrival_eval_count.csv', df_arrival_eval, delimiter=',')
-np.savetxt('data/departure_train_count.csv', df_departure_train, delimiter=',')
-np.savetxt('data/departure_test_count.csv', df_departure_test, delimiter=',')
-np.savetxt('data/departure_eval_count.csv', df_departure_eval, delimiter=',')
+# print(df_arrival.columns)
+# print(df_departure.columns)
 
-# stream line by finding count, then do unique then merge
+# # print type per column
+# print(df_arrival.dtypes)
+# print(df_departure.dtypes)
+
+# # drop time
+# df_arrival.drop(['time'], axis=1, inplace=True)
+# df_departure.drop(['time'], axis=1, inplace=True)
+
+# # convert to float16 if column data type  is object
+# for col in df_arrival.columns:
+#     if df_arrival[col].dtype == 'object':
+#         df_arrival[col] = df_arrival[col].astype('float16')
+# for col in df_departure.columns:
+#     if df_departure[col].dtype == 'object':
+#         df_departure[col] = df_departure[col].astype('float16')
+
+# print(df_arrival.dtypes)
+# print(df_departure.dtypes)
+
+# print('reducing memory')
+# df_arrival = reduce_mem_usage(df_arrival)
+# df_departure = reduce_mem_usage(df_departure)
+
+# # standardise data
+# print('standardising')
+# scaler = StandardScaler()
+# df_arrival = scaler.fit_transform(df_arrival)
+# df_departure = scaler.fit_transform(df_departure)
+
+
+# # split into train and test and eval
+# split = 0.2
+# df_arrival_train, df_arrival_test = train_test_split(df_arrival, test_size=split)
+# df_arrival_train, df_arrival_eval = train_test_split(df_arrival_train, test_size=split)
+# df_departure_train, df_departure_test = train_test_split(df_departure, test_size=split)
+# df_departure_train, df_departure_eval = train_test_split(df_departure_train, test_size=split)
+
+# print('saving now')
+
+# # save to csv
+# np.savetxt('data/arrival_train_count.csv', df_arrival_train, delimiter=',')
+# np.savetxt('data/arrival_test_count.csv', df_arrival_test, delimiter=',')
+# np.savetxt('data/arrival_eval_count.csv', df_arrival_eval, delimiter=',')
+# np.savetxt('data/departure_train_count.csv', df_departure_train, delimiter=',')
+# np.savetxt('data/departure_test_count.csv', df_departure_test, delimiter=',')
+# np.savetxt('data/departure_eval_count.csv', df_departure_eval, delimiter=',')
+
+# # stream line by finding count, then do unique then merge
